@@ -1,5 +1,6 @@
 package com.cicd.pegacicd;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
@@ -39,8 +40,8 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String URL="https://13519204.ngrok.io/prweb/api/v1/casetypes";
-                //String URL="https://13519204.ngrok.io/prweb/api/v1/authenticate";
+                String URL="http://64d6920e.ngrok.io/prweb/api/v1/casetypes";
+                //String URL="https://samples.openweathermap.org/data/2.5/weather?zip=94040,us&appid=b6907d289e10d714a6e88b30761fae22";
                 final String UserName = UserId_Pega.getText().toString();
                 final String Password = UserPwd_Pega.getText().toString();
                 Log.e("Username entered ",UserName);
@@ -55,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onResponse(JSONObject response) {
                                 Log.e("success response", response.toString());
+                                Intent intent = new Intent(MainActivity.this,LoginSuccess.class);
+                                startActivity(intent);
                             }
                         },
                         new Response.ErrorListener() {
