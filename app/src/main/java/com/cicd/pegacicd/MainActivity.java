@@ -79,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                                 Intent intent = new Intent(MainActivity.this,LoginSuccess.class);
+                                intent.putExtra("PipelineResponse",JsonResponse);
                                 intent.putExtra("Login_UName",UserName);
                                 intent.putExtra("Logn_UPwd",Password);
 
