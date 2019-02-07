@@ -17,7 +17,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -27,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
     EditText UserId_Pega;
     EditText UserPwd_Pega;
+    String JsonResponse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String URL="http://fcb005d4.ngrok.io/prweb/PRRestService/cicd/v1/pipelines";
+                String URL="http://e635551a.ngrok.io/prweb/PRRestService/cicd/v1/pipelines";
                 //String URL="https://samples.openweathermap.org/data/2.5/weather?zip=94040,us&appid=b6907d289e10d714a6e88b30761fae22";
                 final String UserName = UserId_Pega.getText().toString();
                 final String Password = UserPwd_Pega.getText().toString();
@@ -56,7 +61,23 @@ public class MainActivity extends AppCompatActivity {
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
-                                Log.e("success response", response.toString());
+                                //Log.e("success response", response.toString());
+
+                                JsonResponse = response.toString();
+                                Log.e("Response Data : ",JsonResponse);
+
+                                try {
+                                    JSONArray jsonArray = response.getJSONArray("pipelines");
+                                    for (int i=0; i<jsonArray.length(); i++){
+                                        JSONObject pipeline = jsonArray.getJSONObject(i);
+                                        String PipeLineName = pipeline.getString("pipelineLabel");
+                                        Log.e("Pipeline name",PipeLineName);
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+
                                 Intent intent = new Intent(MainActivity.this,LoginSuccess.class);
                                 intent.putExtra("Login_UName",UserName);
                                 intent.putExtra("Logn_UPwd",Password);
