@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String URL="http://e635551a.ngrok.io/prweb/PRRestService/cicd/v1/pipelines";
+                String URL="http://54b0266d.ngrok.io/prweb/PRRestService/cicd/v1/pipelines";
                 //String URL="https://samples.openweathermap.org/data/2.5/weather?zip=94040,us&appid=b6907d289e10d714a6e88b30761fae22";
                 final String UserName = UserId_Pega.getText().toString();
                 final String Password = UserPwd_Pega.getText().toString();
@@ -80,8 +80,7 @@ public class MainActivity extends AppCompatActivity {
 
                                 Intent intent = new Intent(MainActivity.this,LoginSuccess.class);
                                 intent.putExtra("PipelineResponse",JsonResponse);
-                                intent.putExtra("Login_UName",UserName);
-                                intent.putExtra("Logn_UPwd",Password);
+
 
 
                                 startActivity(intent);

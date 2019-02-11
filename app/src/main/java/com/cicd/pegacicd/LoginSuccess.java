@@ -1,8 +1,11 @@
 package com.cicd.pegacicd;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.google.gson.JsonArray;
@@ -27,13 +30,8 @@ public class LoginSuccess extends AppCompatActivity {
         setContentView(R.layout.activity_login_success);
 
         listView = (ListView) findViewById(R.id.PipeLineListView);
-
-
-
         pipelineAdapter = new PipelineAdapter(LoginSuccess.this,R.layout.row_layout);
-
         listView.setAdapter(pipelineAdapter);
-
         Bundle bundlelogin = getIntent().getExtras();
         PipeLineInfo = bundlelogin.getString("PipelineResponse");
         Log.e("Json in second activity: ",PipeLineInfo);
@@ -56,12 +54,21 @@ public class LoginSuccess extends AppCompatActivity {
               count++;
             }
 
-
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(LoginSuccess.this,SelectedPipeline.class);
+                Pipelines pipelineinfo = (Pipelines) listView.getItemAtPosition(i);
+                String Pipename = pipelineinfo.getPipelinename();
+                Log.e("Selected pipeline is :",Pipename);
+                intent.putExtra("PipeLineName",Pipename);
+                startActivity(intent);
+            }
+        });
 
     }
 }
